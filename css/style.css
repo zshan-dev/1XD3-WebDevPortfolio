@@ -1,5 +1,5 @@
 body {
-  background-color: #f5f5f7;
+  background-color: #ffffff;
   text-align: center;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -12,6 +12,7 @@ body {
   background-color: #ffffff;
   box-shadow: 10px 7px 5px rgb(128, 176, 196);
 }
+
 .navlink {
   color: rgb(0, 0, 0);
   padding: 10px;
@@ -49,6 +50,7 @@ margin: 10px;
   background-color: #0066cc58;
   border-radius: 30px;
   margin: 10px;
+  border: solid #0066cc 2px;
 }
 
 #pfp {
@@ -57,10 +59,11 @@ margin: 10px;
 }
 a {
   text-decoration: none;
+  color: Blue;
 }
 
 .footer{
-  position: fixed;
+  position:fixed; /* smth to fix*/
   left: 0;
   bottom: 0;
   width: 100%;
