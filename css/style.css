@@ -58,10 +58,15 @@ margin: 10px;
 a {
   text-decoration: none;
 }
-.social {
-  background-color: #d1d0d0;
+
+.footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
   text-align: center;
-  padding: 15px;
+  padding: 20px;
 }
 
 @media (max-width: 768px) {
