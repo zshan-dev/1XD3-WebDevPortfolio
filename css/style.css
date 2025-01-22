@@ -46,6 +46,9 @@ margin: 10px;
 #text {
   text-align: center;
   padding: 10px;
+  background-color: #0066cc58;
+  border-radius: 30px;
+  margin: 10px;
 }
 
 #pfp {
