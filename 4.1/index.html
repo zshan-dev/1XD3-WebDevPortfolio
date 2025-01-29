@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+TODO: This is a comment. Change this header comment to describe the 
+web page and include your name as author.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script>
+      function arithmetic() {
+        let num1 = Math.floor(Math.random() * 201) - 100;
+        let num2 = Math.floor(Math.random() * 201) - 100;
+        let n = Number(prompt(`What is the answer to ${num1} + ${num2}?`));
+        let ans = num1+num2;
+        while (n != ans) {
+            alert("Wrong");
+            n = Number(prompt(`What is the answer to ${num1} + ${num2}?`));
+        }
+        alert("That was correct");
+      }
+    </script>
+    <title>Arithmetic quiz</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="header">TODO</div>
+      <div id="nav">TODO</div>
+      <div id="content">TODO</div>
+      <div id="footer">TODO</div>
+    </div>
+  </body>
+</html>
