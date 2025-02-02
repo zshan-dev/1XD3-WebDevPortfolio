@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
-TODO: This is a comment. Change this header comment to describe the 
-web page and include your name as author.
+TODO: Describe the web page here.
+Author: Your Name
 -->
 <html>
 
@@ -10,42 +10,68 @@ web page and include your name as author.
   <meta name="viewport" content="width=device-width">
   <title>Home</title>
   <link rel="stylesheet" href="./css/style.css" />
+  <style>
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .gallery {
+        display: flex;
+        flex-direction: column;
+      }
+      .info_section {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 
 <body>
   <div id="nav">
     <h3 id="logo">Zeeshans Portfolio</h3>
     <div id="links">
-      <a class="navlink" href="index.html">Splash</a>
+      <a class="navlink" href="index.html">Home</a>
       <a class="navlink" href="about.html">About</a>
       <a class="navlink" href="journal.html">Journal</a>
       <a class="navlink" href="work.html">Course Work</a>
     </div>
   </div>
-  <div id="container">
-    <div id="header">
-      <h1>Zeeshan Bombaywala</h1>
+  <div class="content">
+    <div class="about_section">
+      <h1 id = "header">About Me</h1>
+      <p> Hey, I'm Zeeshan a first year Computer Science student at McMaster University. 
+        Taking COMPSCI 1XD3 Computer Science Practice and Experience: Introduction to Software Design Using Web Programming</p>
+      <li>
+        <a href="https://academiccalendars.romcmaster.ca/preview_course_nopop.php?catoid=53&coid=267659" target="_blank"><b>Course Syllabus</b></a>
+      </li>
     </div>
-    <div id="body">
-      <h1>About me</h1>
-      <img id="pfp" src="images/pfp.JPG">
-      <div id = "text"> 
-        <p><b>
-            Im a first year Computer Science student at McMaster University.
-          </b></p>
-        <li> 
-          Taking COMPSCI 1XD3 Computer Science Practice and Experience: Introduction to Software Design Using Web
-          Programming
-        </li>
-        <li>
-          <a href="https://academiccalendars.romcmaster.ca/preview_course_nopop.php?catoid=53&coid=267659"><b>Course Syllabus</b></a>
-        </li>
+    <div class="info_section">
+      <div class="info_box">
+        <h3>Contact Information</h3>
+        <p>Email: bombaywz@mcmaster.ca</p>
+        <p>Phone: +123 456 7890</p>
       </div>
-      <div class="footer">
-        <a href="https://github.com/zshan-dev" target="_blank"><img src="images/github_pic.webp" width="30px"></a>
-        <a href=https://www.linkedin.com/in/zeeshan-bombaywala-8846b6289/ target="_blank"> <img
-            src="images/linkedin_pic.png" width="30px"></a>
+      <div class="info_box">
+        <h3>Education</h3>
+        <p>BS in Computer Science, McMaster University</p>
       </div>
+      <div class="info_box">
+        <h3>Skills</h3>
+        <p>HTML/CSS, JavaScript, Python</p>
+        <p>Backend Development, UI/UX Design</p>
+      </div>
+    </div>
+    <div class="gallery">
+      <img src="images/project.jpg">
+      <img src="images/globe.jpg" >
+      <img src="images/science.jpg">
+    </div>
+    <div class="footer">
+      <a href="https://github.com/zshan-dev" target="_blank"><img src="images/github_pic.webp" width="30px"></a>
+      <a href=https://www.linkedin.com/in/zeeshan-bombaywala-8846b6289/ target="_blank"> <img src="images/linkedin_pic.png" width="30px"></a>
     </div>
   </div>
 </body>
