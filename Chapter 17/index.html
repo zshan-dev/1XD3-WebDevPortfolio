@@ -23,17 +23,16 @@ web page and include your name as author.
       var score = 0;
       var drawn = {};
 
-      function drawBall() {
+      function draw() {
         while (true) {
-          var index = prompt(
-            "Enter a ball index to draw (0-99), or type 'quit' to exit:"
-          );
-          if (index.toLowerCase() === "quit") {
+          var usr_input = prompt(
+            "Enter a ball from (0-99) to draw:");
+          if (usr_input == null) {
             alert("Final score: " + score);
             return;
           }
 
-          index = parseInt(index);
+          index = parseInt(usr_input);
           if (isNaN(index) || index < 0 || index >= 100 || drawn[index]) {
             alert("Invalid index or ball already drawn. Try again.");
             continue; 
@@ -51,25 +50,20 @@ web page and include your name as author.
 
           if (ball.color === "red") {
             score -= ball.points;
-            alert("Game over! You drew a red ball. Final score: " + score);
-            return; // Game ends
+            alert(" You drew a red ball. Final score: " + score);
+            return; 
           } else {
-            score += ball.points; // Update score with points from the white ball
+            score += ball.points; 
           }
         }
       }
-
-      // Start the game
-      drawBall();
+      draw();
     </script>
   </head>
 
   <body>
     <div id="container">
-      <div id="header">TODO</div>
-      <div id="nav">TODO</div>
-      <div id="content">TODO</div>
-      <div id="footer">TODO</div>
+      <div id="header">Lottery Game</div>
     </div>
   </body>
 </html>
