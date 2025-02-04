@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--
+TODO: This is a comment. Change this header comment to describe the 
+web page and include your name as author.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Lottery App</title>
+    <script>
+      function LotteryBall() {
+        this.color = Math.random() > 0.5 ? "red" : "white";
+        this.points = Math.floor(Math.random() * 101);
+      }
+
+      var balls = [];
+      for (var i = 0; i < 100; i++) {
+        balls[i] = new LotteryBall();
+      }
+
+      var score = 0;
+      var drawn = {};
+
+      function drawBall() {
+        while (true) {
+          var index = prompt(
+            "Enter a ball index to draw (0-99), or type 'quit' to exit:"
+          );
+          if (index.toLowerCase() === "quit") {
+            alert("Final score: " + score);
+            return;
+          }
+
+          index = parseInt(index);
+          if (isNaN(index) || index < 0 || index >= 100 || drawn[index]) {
+            alert("Invalid index or ball already drawn. Try again.");
+            continue; 
+          }
+
+          drawn[index] = true;
+          var ball = balls[index];
+          alert(
+            "You drew a " +
+              ball.color +
+              " ball worth " +
+              ball.points +
+              " points."
+          );
+
+          if (ball.color === "red") {
+            score -= ball.points;
+            alert("Game over! You drew a red ball. Final score: " + score);
+            return; // Game ends
+          } else {
+            score += ball.points; // Update score with points from the white ball
+          }
+        }
+      }
+
+      // Start the game
+      drawBall();
+    </script>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="header">TODO</div>
+      <div id="nav">TODO</div>
+      <div id="content">TODO</div>
+      <div id="footer">TODO</div>
+    </div>
+  </body>
+</html>
