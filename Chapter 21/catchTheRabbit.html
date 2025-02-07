@@ -20,14 +20,36 @@ it from the page completely and can cause the page layout to change.
 Sam Scott, McMaster, 2025
 -->
 <html>
-
-<head>
+  <head>
     <title>Catch the Rabbit</title>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <link rel="stylesheet" href="css/catchTheRabbit.css" />
-</head>
+    <script>
+      window.addEventListener("load", function () {
+        let rabbits = [
+          document.getElementById("rabbit1"),
+          document.getElementById("rabbit2"),
+          document.getElementById("rabbit3"),
+          document.getElementById("rabbit4"),
+        ];
 
-<body>
+        let currentIndex = 0;
+
+
+        function moveRabbit() {
+          rabbits[currentIndex].style.visibility = "hidden"; 
+          currentIndex = (currentIndex + 1) % rabbits.length;
+          rabbits[currentIndex].style.visibility = "visible"; 
+        }
+        
+        rabbits.forEach((rabbit) => {
+          rabbit.addEventListener("mousemove", moveRabbit);
+        });
+      });
+    </script>
+  </head>
+
+  <body>
     <h1>Catch the Easter Bunny to get your egg!</h1>
     <img src="images/rabbit.png" id="rabbit1" alt="Catch the rabbit" />
     <img src="images/rabbit.png" id="rabbit2" alt="Catch the rabbit" />
@@ -35,6 +57,5 @@ Sam Scott, McMaster, 2025
     <img src="images/rabbit.png" id="rabbit4" alt="Catch the rabbit" />
     <h2 id="noeggs">No Easter Eggs for You</h2>
     <h2 id="slow">Humans are slow!!!</h2>
-</body>
-
+  </body>
 </html>
