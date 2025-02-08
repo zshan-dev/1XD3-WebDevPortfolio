@@ -1,0 +1,48 @@
+<!doctype html>
+<!--
+An example of instant feedback for a form element.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Shopping List</title>
+    <script>
+        window.addEventListener("load", function(){
+            let item = document.getElementById("item");
+            let submit = document.getElementById("submitbutton");
+            let remove = document.getElementById("delete");
+            let items = [];
+            let list = document.getElementById("list");
+            list.style.visibility = "hidden";
+
+            if (submit){
+                submit.addEventListener("click", function(){
+                    let userInput = item.value;
+                    items.push(userInput);
+                    console.log(items);
+                    list.innerHTML = items;
+                    list.style.visibility = "visible";
+                });
+            }
+
+
+        });
+
+
+    </script>
+</head>
+
+<body>
+    <div id="shop">
+        <h1>Shopping List</h1>
+        <input id = "item" placeholder = "Strawberry">
+        <button id="submitbutton">Submit</button>
+        <button id="delete">Delete</button>
+        <h2 id = "head">Items</h2>
+        <p id = "list"></p>
+
+    </div>
+</body>
+
+</html>
