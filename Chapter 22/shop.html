@@ -1,47 +1,70 @@
 <!doctype html>
-<!--
-An example of instant feedback for a form element.
--->
 <html>
 
 <head>
     <meta charset="utf-8">
     <title>Shopping List</title>
     <script>
-        window.addEventListener("load", function(){
+        window.addEventListener("load", function () {
             let item = document.getElementById("item");
             let submit = document.getElementById("submitbutton");
-            let remove = document.getElementById("delete");
-            let items = [];
+            let deleteBtn = document.getElementById("delete");
             let list = document.getElementById("list");
+            let items = [];
+
             list.style.visibility = "hidden";
 
-            if (submit){
-                submit.addEventListener("click", function(){
-                    let userInput = item.value;
-                    items.push(userInput);
-                    console.log(items);
-                    list.innerHTML = items;
-                    list.style.visibility = "visible";
-                });
+            function updateList() {
+                list.innerHTML = "";
+
+                if (items.length === 0) {
+                    list.style.visibility = "hidden";
+                    return;
+                }
+
+                list.style.visibility = "visible";
+                let ol = document.createElement("ol");
+
+                for (let i = 0; i < items.length; i++) {
+                    let li = document.createElement("li");
+                    li.textContent = items[i];
+                    ol.appendChild(li);
+                }
+
+                list.appendChild(ol);
             }
 
+            submit.addEventListener("click", function () {
+                let userInput = item.value.trim();
 
+                if (userInput !== "") {
+                    items.push(userInput);
+                    item.value = "";
+                    updateList();
+                }
+            });
+
+            deleteBtn.addEventListener("click", function () {
+                let userInput = item.value.trim();
+                let index = items.indexOf(userInput);
+                if (index !== -1) {
+                    items.splice(index, 1);
+                    updateList();
+                } 
+                item.value = "";
+            });
         });
-
-
     </script>
 </head>
 
 <body>
     <div id="shop">
         <h1>Shopping List</h1>
-        <input id = "item" placeholder = "Strawberry">
+        <input id="item" placeholder="Ex. Stawberry">
         <button id="submitbutton">Submit</button>
         <button id="delete">Delete</button>
-        <h2 id = "head">Items</h2>
-        <p id = "list"></p>
-
+        <h2 id="head">Items</h2>
+        <div id="list"></div>
     </div>
 </body>
 
