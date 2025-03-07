@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas Test Bed</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <style type="text/css">
+      #testCanvas {
+        background-color: silver;
+        margin: 30px;
+      }
+      body {
+        text-align: center;
+        color: silver;
+        background-color: rgb(53, 66, 29);
+      }
+    </style>
+    <script>
+      window.addEventListener("load", function () {
+        let c = document.getElementById("testCanvas");
+        let ctx = c.getContext("2d");
+        let button1 = document.getElementById("1");
+        let button2 = document.getElementById("2");
+        let button3 = document.getElementById("3");
+        let button4 = document.getElementById("4");
+        let houseX = 50; 
+        const houseSpacing = 120; 
+        const houseSize = 80; 
+        let lastHouseX = houseX;
+
+        button1.addEventListener("click", function () {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        button2.addEventListener("click", function () {
+          drawHouse(ctx, houseX, houseSize);
+          lastHouseX = houseX; 
+          houseX += houseSpacing;
+        });
+
+        button3.addEventListener("click", function () {
+          drawCar(ctx, lastHouseX + 10, 250); 
+        });
+
+        button4.addEventListener("click", function () {
+          let randomX = Math.random() * c.width;
+          let randomY = Math.random() * 100; // Keep stars in the sky
+          let randomColor = getRandomColor();
+          drawStar(ctx, randomX, randomY, randomColor);
+        });
+
+        function drawHouse(ctx, x, size) {
+          ctx.strokeStyle = "red";
+          ctx.lineWidth = 5;
+          ctx.strokeRect(x, 150, size, size);
+
+          ctx.strokeStyle = "blue";
+          ctx.beginPath();
+          ctx.moveTo(x + size / 2, 150 - (size / 2));
+          ctx.lineTo(x + size, 150);
+          ctx.lineTo(x, 150);
+          ctx.closePath();
+          ctx.stroke();
+        }
+
+        function drawCar(ctx, x, y) {
+          ctx.strokeStyle = "green";
+          ctx.lineWidth = 5;
+          ctx.strokeRect(x, y, 60, 30); // Car body
+
+          ctx.beginPath();
+          ctx.arc(x + 10, y + 30, 10, 0, Math.PI * 2); // Left wheel
+          ctx.arc(x + 50, y + 30, 10, 0, Math.PI * 2); // Right wheel
+          ctx.stroke();
+        }
+
+        function drawStar(ctx, x, y, color) {
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          for (let i = 0; i < 5; i++) {
+            let angle = (Math.PI / 2.5) * i;
+            let xPos = x + Math.cos(angle) * 10;
+            let yPos = y - Math.sin(angle) * 10;
+            ctx.lineTo(xPos, yPos);
+          }
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        function getRandomColor() {
+          let letters = '0123456789ABCDEF';
+          let color = '#';
+          for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+          }
+          return color;
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Canvas Test Bed 4</h1>
+    <canvas id="testCanvas" width="800" height="400"></canvas>
+    <br />
+    <input id ="1" type="button" value="Button 1" />
+    <input id="2" type="button" value="Button 2" />
+    <input id="3" type="button" value="Button 3" />
+    <input id="4" type="button" value="Button 4" />
+  </body>
+</html>
