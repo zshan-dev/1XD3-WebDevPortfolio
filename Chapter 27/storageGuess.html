@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guessing Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <script>
+        class GuessingGame {
+            constructor(randomNumber = Math.floor(Math.random() * 100 + 1), attempts = 0) {
+                this.randomNumber = randomNumber;
+                this.attempts = attempts;
+                this.maxAttempts = 10;
+            }
+
+            guess(number) {
+                this.attempts++;
+                saveGame(); // Save game state
+
+                if (number > this.randomNumber) {
+                    return "Too high! Try again.";
+                } else if (number < this.randomNumber) {
+                    return "Too low! Try again.";
+                } else {
+                    return "🎉 Congratulations! You guessed it!";
+                }
+            }
+
+            isGameOver() {
+                return this.attempts >= this.maxAttempts;
+            }
+        }
+
+        let game;
+
+        // Load the saved game from localStorage
+        function loadGame() {
+            let savedGame = localStorage.getItem("guessingGame");
+            if (savedGame) {
+                let data = JSON.parse(savedGame);
+                game = new GuessingGame(data.randomNumber, data.attempts);
+            } else {
+                game = new GuessingGame();
+            }
+            updateAttemptsLeft();
+        }
+
+        // Save the game state to localStorage
+        function saveGame() {
+            localStorage.setItem("guessingGame", JSON.stringify(game));
+        }
+
+        function startNewGame() {
+            game = new GuessingGame();
+            saveGame(); // Save new game state
+            document.getElementById("guessInput").value = "";
+            document.getElementById("message").innerText = "";
+            updateAttemptsLeft();
+        }
+
+        function updateAttemptsLeft() {
+            document.getElementById("attempts").innerText = `Attempts Left: ${game.maxAttempts - game.attempts}`;
+        }
+
+        window.addEventListener("load", function () {
+            loadGame(); // Load game on startup
+
+            document.getElementById("guessForm").addEventListener("submit", function (event) {
+                event.preventDefault(); 
+
+                let userGuess = parseInt(document.getElementById("guessInput").value);
+                let resultMessage = game.guess(userGuess);
+
+                document.getElementById("message").innerText = resultMessage;
+                updateAttemptsLeft();
+
+                if (resultMessage.includes("Congratulations") || game.isGameOver()) {
+                    setTimeout(() => {
+                        document.getElementById("message").innerText = game.isGameOver()
+                            ? `Game over! The number was ${game.randomNumber}. Starting a new game!`
+                            : "Starting a new game!";
+                        startNewGame();
+                    }, 2000);
+                }
+            });
+        });
+    </script>
+</head>
+
+<body style="text-align: center">
+    <h1>Guess the Number</h1>
+    <p>Enter a number between 1 and 100:</p>
+    <p id="attempts"></p>
+    <form id="guessForm">
+        <input type="number" id="guessInput" min="1" max="100" required>
+        <button type="submit">Guess</button>
+    </form>
+    <p id="message"></p>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guessing Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <script>
+        class GuessingGame {
+            constructor() {
+                this.randomNumber = Math.floor(Math.random() * 100 + 1);
+                this.attempts = 0;
+                this.maxAttempts = 10;
+            }
+
+            guess(number) {
+                this.attempts++;
+                if (number > this.randomNumber) {
+                    return "Too high! Try again.";
+                } else if (number < this.randomNumber) {
+                    return "Too low! Try again.";
+                } else {
+                    return "Congratulations! You guessed it!";
+                }
+            }
+
+            isGameOver() {
+                return this.attempts >= this.maxAttempts;
+            }
+        }
+
+        let game;
+
+        window.addEventListener("load", function () {
+            game = new GuessingGame();
+            document.getElementById("guessForm").addEventListener("submit", function (event) {
+                event.preventDefault(); 
+                
+                let userGuess = parseInt(document.getElementById("guessInput").value);
+                let resultMessage = game.guess(userGuess);
+                
+                document.getElementById("message").innerText = resultMessage;
+
+                if (resultMessage.includes("Congratulations")) {
+                    document.getElementById("message").innerText += " Starting a new game!";
+                    startNewGame();
+                } else if (game.isGameOver()) {
+                    document.getElementById("message").innerText = "Game over! The number was " + game.randomNumber + ". Starting a new game!";
+                    startNewGame();
+                }
+            });
+        });
+
+        function startNewGame() {
+            game = new GuessingGame();
+            document.getElementById("guessInput").value = "";
+        }
+    </script>
+</head>
+
+<body style="text-align: center">
+    <h1>Guess the Number</h1>
+    <p>Enter a number between 1 and 100:</p>
+    <form id="guessForm">
+        <input type="number" id="guessInput" min="1" max="100" required>
+        <button type="submit">Guess</button>
+    </form>
+    <p id="message"></p>
+</body>
+</html>

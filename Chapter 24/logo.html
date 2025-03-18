@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FZMS Web Dev Animation</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script>
+      window.addEventListener("load", function () {
+        let canvas = document.getElementById("animationCanvas");
+        let ctx = canvas.getContext("2d");
+
+        // Text Variables
+        let text = "FZMS Web Dev";
+        let textX = -200; // Starts off-screen
+        let textY = 100;
+        let textSpeed = 3;
+        let textStopX = canvas.width / 2 - 150;
+
+        // Hammer Image Variables
+        let hammer = new Image();
+        hammer.src = "hammer.png"; // Ensure this image exists
+        let hammerX = -100;
+        let hammerY = 180;
+        let hammerSpeed = 4;
+        let hammerStopX = canvas.width / 2 - 50;
+        let hammerRotation = 0;
+        let isRotating = false;
+
+        function drawBackgroundShapes() {
+          ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+          ctx.fillRect(50, 50, 80, 200);
+          ctx.fillRect(480, 100, 100, 150);
+
+          ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+          ctx.fillRect(200, 50, 60, 250);
+          ctx.fillRect(350, 120, 70, 180);
+        }
+
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          drawBackgroundShapes();
+
+          // Move text
+          if (textX < textStopX) {
+            textX += textSpeed;
+          }
+
+          // Draw text with glow effect
+          ctx.font = "50px Arial";
+          ctx.fillStyle = "white";
+          ctx.shadowColor = "yellow";
+          ctx.shadowBlur = 20;
+          ctx.fillText(text, textX, textY);
+
+          // Move hammer
+          if (hammerX < hammerStopX) {
+            hammerX += hammerSpeed;
+          } else if (!isRotating) {
+            isRotating = true;
+            setTimeout(() => rotateHammer(), 500);
+          }
+
+          drawHammer();
+          requestAnimationFrame(animate);
+        }
+
+        function drawHammer() {
+          ctx.save();
+          ctx.translate(hammerX + 50, hammerY + 50);
+          ctx.rotate((hammerRotation * Math.PI) / 180);
+          ctx.drawImage(hammer, -50, -50, 100, 100);
+          ctx.restore();
+        }
+
+        function rotateHammer() {
+          let rotationInterval = setInterval(() => {
+            if (hammerRotation < 30) {
+              hammerRotation += 2;
+            } else {
+              clearInterval(rotationInterval);
+            }
+          }, 30);
+        }
+
+        animate();
+      });
+    </script>
+  </head>
+
+  <body style="text-align: center">
+    <canvas id="animationCanvas" width="600" height="400" style="background-color: rgb(40, 40, 40)"></canvas>
+  </body>
+</html>

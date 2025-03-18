@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas Animation with Multiple Balls</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <script>
+        class Ball {
+            constructor(x, y, xSpeed, ySpeed, red, green, blue) {
+                this.x = x;
+                this.y = y;
+                this.xSpeed = xSpeed;
+                this.ySpeed = ySpeed;
+                this.red = red;
+                this.green = green;
+                this.blue = blue;
+                this.radius = 5; // Increased radius for better visibility
+            }
+
+            moveOneStep(canvas) {
+                this.x += this.xSpeed;
+                this.y += this.ySpeed;
+
+                // Bounce off the walls
+                if (this.x <= this.radius || this.x >= canvas.width - this.radius) {
+                    this.xSpeed *= -1;
+                }
+                if (this.y <= this.radius || this.y >= canvas.height - this.radius) {
+                    this.ySpeed *= -1;
+                }
+            }
+
+            draw(ctx) {
+                ctx.fillStyle = `rgb(${this.red}, ${this.green}, ${this.blue})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        window.addEventListener("load", function () {
+            const canvas = document.getElementById("animationCanvas");
+            const ctx = canvas.getContext("2d");
+
+            const balls = [];
+            const numBalls = 500;
+
+            // Create 500 balls with random properties
+            for (let i = 0; i < numBalls; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const xSpeed = (Math.random() - 0.5) * 6; // Increased speed for visibility
+                const ySpeed = (Math.random() - 0.5) * 6;
+                const red = Math.floor(Math.random() * 256);
+                const green = Math.floor(Math.random() * 256);
+                const blue = Math.floor(Math.random() * 256);
+
+                balls.push(new Ball(x, y, xSpeed, ySpeed, red, green, blue));
+            }
+
+            function updateAnimation() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let ball of balls) {
+                    ball.moveOneStep(canvas);
+                    ball.draw(ctx);
+                }
+
+                requestAnimationFrame(updateAnimation); // Ensures smooth animation
+            }
+
+            updateAnimation();
+        });
+    </script>
+</head>
+
+<body style="text-align:center;">
+    <canvas id="animationCanvas" width="768" height="400" style="background-color:black;"></canvas>
+</body>
+
+</html>
